@@ -9,37 +9,40 @@ const Button = (props) => (
 )
 
 const App = () => {
-  // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const [all, setAll] = useState(0)
 
-  const voteGood = () => {
+  const vote = () => {
     const newAll = all + 1
     setAll(newAll)
+    console.log("all:", newAll)
+  }
+
+  const getAverage = () => (good - bad) / all
+
+  const getPositives = () => good / all * 100 + " %"
+
+  const voteGood = () => {
     const newGood = good + 1
     setGood(newGood)
     console.log("good:", newGood)
-    console.log("all:", newAll)
+    vote()
   }
 
   const voteNeutral = () => {
-    const newAll = all + 1
-    setAll(newAll)
     const newNeutral = neutral + 1
     setNeutral(newNeutral)
     console.log("neutral:", newNeutral)
-    console.log("all:", newAll)
+    vote()
   }
 
   const voteBad = () => {
-    const newAll = all + 1
-    setAll(newAll)
     const newBad = bad + 1
     setBad(newBad)
     console.log("bad:", newBad)
-    console.log("all:", newAll)
+    vote()
   }
 
   return (
@@ -49,10 +52,12 @@ const App = () => {
       <Button handleClick={() => voteNeutral()} text="Neutral" />
       <Button handleClick={() => voteBad()} text="Bad" />
       <h1>Statistics</h1>
-      <p><b>All: {all}</b></p>
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
+      <p><b>All: {all}</b></p>
+      <p><b>Average: {getAverage()}</b></p>
+      <p><b>Positive: {getPositives()}</b></p>
     </div>
   )
 }
