@@ -22,7 +22,7 @@ const App = () => {
       },
       {
         name: 'Stated of a component',
-        exercises: 14,
+        exercises: 1000,
         id: 4
       }
     ]
