@@ -12,7 +12,6 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-
   const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -20,14 +19,27 @@ const App = () => {
   }
 
   const [selected, setSelected] = useState(0)
+  const [voted, setVote] = useState(Array(anecdotes.length).fill(0))
 
   const randomAnectode = () => {
     setSelected(getRandomInt(0, anecdotes.length))
   }
 
+  const voteAnecdote = (selected) => {
+    console.log("selected", selected, "anecdote", anecdotes[selected])
+    var newVoted = [...voted];
+    console.log()
+    newVoted[selected] += 1
+    setVote(newVoted)
+    console.log("had", voted[selected], "votes, now", newVoted[selected], "votes")
+    console.log("all votes", newVoted)
+  }
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>has {voted[selected]} votes</p>
+      <button onClick={() => voteAnecdote(selected)}>vote</button>
       <button onClick={() => randomAnectode()}>next anecdote</button>
     </div>
   )
