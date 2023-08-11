@@ -20,7 +20,6 @@ const Total = ({ parts }) => {
 const Course = ({ course }) => {
   return (
     <>
-      <h1>Web development curriculum</h1>
       <Header name={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts} />
