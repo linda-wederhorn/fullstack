@@ -50,6 +50,18 @@ const App = () => {
     }
   };
 
+  const deletePerson = (id) => {
+    const personToDelete = persons.find((person) => person.id === id);
+    if (
+      window.confirm(`Do you really want to delete ${personToDelete.name}?`)
+    ) {
+      console.log(`Deleted ${personToDelete.name}`);
+      personService.deletePerson(id);
+      const updatedPersons = persons.filter((person) => person.id !== id);
+      setPersons(updatedPersons);
+    }
+  };
+
   const personsToShow =
     newFilter === ""
       ? persons
@@ -72,7 +84,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons filteredPersons={personsToShow} />
+      <Persons filteredPersons={personsToShow} deleteFunction={deletePerson} />
     </div>
   );
 };
