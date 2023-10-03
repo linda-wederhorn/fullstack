@@ -1,12 +1,7 @@
-const Person({submitFunction}) => (
-  <>
-  <div>
-    name: <input value={newName} onChange={handleNameChange} />
-  </div>
-  <div>
-    number: <input value={newNumber} onChange={handleNumberChange} />
-  </div>
-  </>
-)
+const Person = ({ person }) => (
+  <li>
+    {person.name} {person.number}
+  </li>
+);
 
-export default Person
+export default Person;
