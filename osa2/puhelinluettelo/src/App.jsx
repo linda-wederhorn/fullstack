@@ -1,4 +1,3 @@
-import axios from "axios";
 import personService from "./services/persons";
 import { useState, useEffect } from "react";
 import Filter from "./components/Filter";

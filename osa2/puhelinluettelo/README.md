@@ -16,5 +16,5 @@ npm run dev
 # Start backend with the command in the project folder
 
 ````
-npx json-server --port=3001 --watch db.json
+npm run server
 ```
