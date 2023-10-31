@@ -42,7 +42,7 @@ const App = () => {
     );
 
     if (nameInPhonebook && !numberUpdated) {
-      notificationMessage(newName, "already");
+      notificationMessage(newName, "alreadyAdded");
     } else if (nameInPhonebook && numberUpdated) {
       if (
         window.confirm(
@@ -60,10 +60,16 @@ const App = () => {
                 person.id !== personToUpdate.id ? person : returnedPersonObject
               )
             );
+            notificationMessage(newName, "update");
             setNewName("");
             setNewNumber("");
+          })
+          .catch((error) => {
+            notificationMessage(newName, "alreadyDeleted");
+            setNewName("");
+            setNewNumber("");
+            setPersons(persons);
           });
-        notificationMessage(newName, "update");
       }
     } else {
       const personObject = {
@@ -113,9 +119,15 @@ const App = () => {
           type: "info",
         });
         break;
-      case "already":
+      case "alreadyAdded":
         setNotification({
           message: `${name} is already added to phonebook`,
+          type: "error",
+        });
+        break;
+      case "alreadyDeleted":
+        setNotification({
+          message: `update failed, ${name} has already been deleted from server`,
           type: "error",
         });
         break;
