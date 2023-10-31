@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [notification, setNotification] = useState({
+    message: null,
+    type: null,
+  });
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -36,9 +41,9 @@ const App = () => {
       (person) => person.name == newName && person.number != newNumber
     );
 
-    if (nameInPhonebook && !numberUpdated)
-      alert(`${newName} is already added to phonebook`);
-    else if (nameInPhonebook && numberUpdated) {
+    if (nameInPhonebook && !numberUpdated) {
+      notificationMessage(newName, "already");
+    } else if (nameInPhonebook && numberUpdated) {
       if (
         window.confirm(
           `${newName} is already added to phonebook, replace the old number with the new one?`
@@ -58,6 +63,7 @@ const App = () => {
             setNewName("");
             setNewNumber("");
           });
+        notificationMessage(newName, "update");
       }
     } else {
       const personObject = {
@@ -70,6 +76,7 @@ const App = () => {
         setNewName("");
         setNewNumber("");
       });
+      notificationMessage(newName, "add");
     }
   };
 
@@ -82,7 +89,40 @@ const App = () => {
       personService.deletePerson(id);
       const updatedPersons = persons.filter((person) => person.id !== id);
       setPersons(updatedPersons);
+      notificationMessage(personToDelete.name, "delete");
     }
+  };
+
+  const notificationMessage = (name, event) => {
+    switch (event) {
+      case "add":
+        setNotification({
+          message: `${name} successfully added`,
+          type: "info",
+        });
+        break;
+      case "delete":
+        setNotification({
+          message: `${name} successfully deleted`,
+          type: "info",
+        });
+        break;
+      case "update":
+        setNotification({
+          message: `${name} successfully updated`,
+          type: "info",
+        });
+        break;
+      case "already":
+        setNotification({
+          message: `${name} is already added to phonebook`,
+          type: "error",
+        });
+        break;
+    }
+    setTimeout(() => {
+      setNotification({ message: null, type: null });
+    }, 5000);
   };
 
   const personsToShow =
@@ -94,6 +134,8 @@ const App = () => {
 
   return (
     <div>
+      <Notification message={notification.message} type={notification.type} />
+
       <h2>Phonebook</h2>
       <Filter filterText={newFilter} changeFunction={handleFilterChange} />
 
