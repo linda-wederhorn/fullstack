@@ -12,3 +12,9 @@ Currently, two official plugins are available:
 ```
 npm run dev
 ```
+
+# Open Weather Map
+
+https://openweathermap.org/current#name
+
+https://open-meteo.com/en/docs

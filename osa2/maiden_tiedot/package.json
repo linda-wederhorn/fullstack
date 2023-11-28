@@ -10,8 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "puhelinluettelo": "../puhelinluettelo",
     "axios": "^1.6.0",
+    "openmeteo": "^1.1.3",
+    "puhelinluettelo": "../puhelinluettelo",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

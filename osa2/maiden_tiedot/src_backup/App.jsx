@@ -17,6 +17,10 @@ const App = () => {
     setNewFilter(event.target.value);
   };
 
+  const handleButtonClick = (event) => {
+    console.log("SHOW BUTTON CLICKED", event);
+  };
+
   useEffect(() => {
     countryService.getAll().then((initialCountries) => {
       setCountries(initialCountries);
@@ -60,8 +64,8 @@ const App = () => {
       <Filter filterText={newFilter} changeFunction={handleFilterChange} />
       <CountryList
         filteredCountries={countriesToShow}
-        // clickFunction={handleButtonClick}
-        // visible={showCountryList}
+        clickFunction={handleButtonClick}
+        visible={showCountryList}
       />
       {/* <CountryDetails country={selectedCountry} visible={showCountryDetails} /> */}
     </>
