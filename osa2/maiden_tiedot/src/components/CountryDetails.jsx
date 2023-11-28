@@ -17,7 +17,6 @@ const CountryDetails = ({ country }) => {
 };
 
 const Languages = ({ languages }) => {
-  console.log(Object.values(languages));
   return (
     <>
       <h2>Languages</h2>
@@ -31,7 +30,6 @@ const Languages = ({ languages }) => {
 };
 
 const Flag = ({ flag }) => {
-  console.log(flag);
   if (flag.png && flag.alt)
     return <img src={flag.png} alt={flag.alt} style={{ marginTop: "20px" }} />;
   else if (flag.svg && flag.alt)

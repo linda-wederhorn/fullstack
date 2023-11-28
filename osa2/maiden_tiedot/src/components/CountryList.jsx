@@ -1,11 +1,13 @@
 import CountryDetails from "./CountryDetails";
 
-const CountryList = ({ filteredCountries }) => {
+const CountryList = ({ filteredCountries, clickFunction }) => {
   if (filteredCountries.length <= 10 && filteredCountries.length > 1) {
     return (
       <ol>
         {filteredCountries.map((country) => (
-          <li key={country.name.common}>{country.name.common}</li>
+          <li key={country.name.common}>
+            {country.name.common} <button onClick={clickFunction}>show</button>
+          </li>
         ))}
       </ol>
     );

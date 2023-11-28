@@ -56,7 +56,7 @@ const App = () => {
       <h1>Anecdote of the day</h1>
       <PrintAnecdote anecdote={anecdotes[selected]} votes={voted[selected]} />
       <Button handleClick={() => voteAnecdote(selected)} text="vote" />
-      <Button handleClick={() => randomAnectode(selected)} text="next anecdote" />
+      <Button handleClick={() => randomAnectode()} text="next anecdote" />
 
       <h1>Anecdote with most votes</h1>
       <PrintAnecdote anecdote={anecdotes[mostVotedAnecdote(voted)]} votes={voted[mostVotedAnecdote(voted)]} />
