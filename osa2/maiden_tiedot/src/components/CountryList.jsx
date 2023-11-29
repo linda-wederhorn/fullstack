@@ -1,40 +1,77 @@
 import { useState } from "react";
 import CountryDetails from "./CountryDetails";
 
-const ShowButton = ({ clickFunction, country }) => (
-  <button onClick={(country) => clickFunction(country)}>show</button>
+const ShowButton = ({ clickFunction }) => (
+  <button onClick={clickFunction}>show</button>
 );
 
-const CountryList = ({ filteredCountries, clickFunction }) => {
+const CountryList = ({ filteredCountries, listVisible }) => {
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [showSelectedCountry, setShowSelectedCountry] = useState(false);
 
-  const handleSetSelectedCountry = (country) => {
-    setSelectedCountry(country);
+  const handleSetSelectedCountry = (countryName) => {
+    const newSelectedCountry = countryName;
+    setSelectedCountry(newSelectedCountry);
+    setShowSelectedCountry(true);
   };
 
-  const handleButtonClick = () => {
-    console.log("SHOW BUTTON CLICKED");
-    setSelectedCountry(country);
+  const handleSetShowSelectedCountry = (show) => {
+    setShowSelectedCountry(show);
   };
 
-  if (filteredCountries.length <= 10 && filteredCountries.length > 1) {
+  console.log("filteredCountries.length", filteredCountries.length);
+  console.log("setShowSelectedCountry", showSelectedCountry);
+
+  if (filteredCountries.length == 0) {
+    return <p>No matches</p>;
+  } else if (
+    filteredCountries.length <= 10 &&
+    filteredCountries.length > 1 &&
+    // filteredCountries.length > 1
+    !showSelectedCountry
+    // listVisible
+  ) {
+    console.log("SHOULD RETURN LIST");
+    console.log("LÖRS LÄRS", selectedCountry);
+    console.log("showselected", showSelectedCountry);
     return (
       <ol>
         {filteredCountries.map((country) => (
           <li key={country.name.common}>
             {country.name.common}{" "}
             <ShowButton
-              clickFunction={handleSetSelectedCountry(country.name.common)}
-              country={country.name.common}
+              clickFunction={() =>
+                handleSetSelectedCountry(country.name.common)
+              }
             />
           </li>
         ))}
       </ol>
     );
   } else if (filteredCountries.length == 1) {
-    handleSetSelectedCountry(filteredCountries[0]);
     return <CountryDetails country={filteredCountries[0]} />;
-  } else return <p>Too many matches, specify another filter</p>;
+  } else if (filteredCountries.length > 10) {
+    return <p>Too many matches, specify another filter</p>;
+  } else {
+    console.log("LÖRS LÄRS", selectedCountry);
+    console.log("filteredCountries.length", filteredCountries.length);
+    console.log("filteredCountries", filteredCountries);
+    console.log("listVisible", listVisible);
+    console.log("showselected", showSelectedCountry);
+    // filteredCountries = filteredCountries.filter(
+    //   (country) => country.name.common == countryName
+    // );
+    return (
+      // <p>hih</p>
+      <CountryDetails
+        country={
+          filteredCountries.filter(
+            (country) => country.name.common == selectedCountry
+          )[0]
+        }
+      />
+    );
+  }
 };
 
 export default CountryList;

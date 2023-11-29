@@ -8,20 +8,20 @@ import CountryDetails from "./components/CountryDetails";
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [newFilter, setNewFilter] = useState("");
-  const [selectedCountry, selectCountry] = useState("");
-  const [cityWeather, setCityWeather] = useState("");
-  const [showCountryList, setShowCountryList] = useState(true);
-  const [showCountryDetails, setShowCountryDetails] = useState(true);
-
-  const handleFilterChange = (event) => {
-    setNewFilter(event.target.value);
-  };
+  const [showSelectedCountry, setShowSelectedCountry] = useState(false);
 
   useEffect(() => {
     countryService.getAll().then((initialCountries) => {
       setCountries(initialCountries);
     });
   }, []);
+
+  const handleFilterChange = (event) => {
+    setNewFilter(event.target.value);
+    console.log("countrylist length", countriesToShow.length);
+    setShowSelectedCountry(false);
+    if (countriesToShow.length == 1) setShowSelectedCountry(true);
+  };
 
   const countriesToShow =
     newFilter === ""
@@ -41,18 +41,7 @@ const App = () => {
   //     });
   // }, []);
 
-  const toggleVisibilities = () => {
-    console.log("called once");
-    if (countriesToShow.length <= 10 && countriesToShow.length > 1) {
-      setShowCountryList(true);
-      // setShowCountryDetails(false);
-    } else if (countriesToShow.length == 1) {
-      setShowCountryList(false);
-      // setShowCountryDetails(true);
-    }
-  };
-
-  // toggleVisibilities();
+  console.log();
 
   return (
     <>
@@ -60,10 +49,8 @@ const App = () => {
       <Filter filterText={newFilter} changeFunction={handleFilterChange} />
       <CountryList
         filteredCountries={countriesToShow}
-        // clickFunction={handleButtonClick}
-        // visible={showCountryList}
+        listVisible={!showSelectedCountry}
       />
-      {/* <CountryDetails country={selectedCountry} visible={showCountryDetails} /> */}
     </>
   );
 };
