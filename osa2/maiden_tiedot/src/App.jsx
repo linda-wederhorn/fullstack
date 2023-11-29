@@ -9,6 +9,7 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [newFilter, setNewFilter] = useState("");
   const [showSelectedCountry, setShowSelectedCountry] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   useEffect(() => {
     countryService.getAll().then((initialCountries) => {
@@ -20,6 +21,7 @@ const App = () => {
     setNewFilter(event.target.value);
     console.log("countrylist length", countriesToShow.length);
     setShowSelectedCountry(false);
+    setSelectedCountry("");
     if (countriesToShow.length == 1) setShowSelectedCountry(true);
   };
 
@@ -41,7 +43,7 @@ const App = () => {
   //     });
   // }, []);
 
-  console.log();
+  console.log("APP.JS: SELECTED COUNTRY IS NOW", selectedCountry);
 
   return (
     <>
@@ -50,6 +52,7 @@ const App = () => {
       <CountryList
         filteredCountries={countriesToShow}
         listVisible={!showSelectedCountry}
+        setCountry={setSelectedCountry}
       />
     </>
   );

@@ -5,13 +5,13 @@ const ShowButton = ({ clickFunction }) => (
   <button onClick={clickFunction}>show</button>
 );
 
-const CountryList = ({ filteredCountries, listVisible }) => {
-  const [selectedCountry, setSelectedCountry] = useState("");
+const CountryList = ({ filteredCountries, listVisible, setCountry }) => {
   const [showSelectedCountry, setShowSelectedCountry] = useState(false);
 
-  const handleSetSelectedCountry = (countryName) => {
+  const handleSetSelectedCountry = (countryName, setCountry) => {
+    console.log("SELECTED", countryName);
     const newSelectedCountry = countryName;
-    setSelectedCountry(newSelectedCountry);
+    setCountry(countryName);
     setShowSelectedCountry(true);
   };
 
@@ -31,9 +31,9 @@ const CountryList = ({ filteredCountries, listVisible }) => {
     !showSelectedCountry
     // listVisible
   ) {
-    console.log("SHOULD RETURN LIST");
-    console.log("LÖRS LÄRS", selectedCountry);
-    console.log("showselected", showSelectedCountry);
+    // console.log("SHOULD RETURN LIST");
+    // console.log("LÖRS LÄRS", selectedCountry);
+    // console.log("showselected", showSelectedCountry);
     return (
       <ol>
         {filteredCountries.map((country) => (
@@ -41,7 +41,7 @@ const CountryList = ({ filteredCountries, listVisible }) => {
             {country.name.common}{" "}
             <ShowButton
               clickFunction={() =>
-                handleSetSelectedCountry(country.name.common)
+                handleSetSelectedCountry(country.name.common, setCountry)
               }
             />
           </li>
@@ -53,7 +53,7 @@ const CountryList = ({ filteredCountries, listVisible }) => {
   } else if (filteredCountries.length > 10) {
     return <p>Too many matches, specify another filter</p>;
   } else {
-    console.log("LÖRS LÄRS", selectedCountry);
+    // console.log("LÖRS LÄRS", selectedCountry);
     console.log("filteredCountries.length", filteredCountries.length);
     console.log("filteredCountries", filteredCountries);
     console.log("listVisible", listVisible);
@@ -62,14 +62,14 @@ const CountryList = ({ filteredCountries, listVisible }) => {
     //   (country) => country.name.common == countryName
     // );
     return (
-      // <p>hih</p>
-      <CountryDetails
-        country={
-          filteredCountries.filter(
-            (country) => country.name.common == selectedCountry
-          )[0]
-        }
-      />
+      <p>hih</p>
+      // <CountryDetails
+      //   country={
+      //     filteredCountries.filter(
+      //       (country) => country.name.common == selectedCountry
+      //     )[0]
+      //   }
+      // />
     );
   }
 };
