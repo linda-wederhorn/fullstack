@@ -5,35 +5,21 @@ const ShowButton = ({ clickFunction }) => (
   <button onClick={clickFunction}>show</button>
 );
 
-const CountryList = ({ filteredCountries, listVisible, setCountry }) => {
-  const [showSelectedCountry, setShowSelectedCountry] = useState(false);
-
+const CountryList = ({ filteredCountries, setCountry, selectedCountry }) => {
   const handleSetSelectedCountry = (countryName, setCountry) => {
-    console.log("SELECTED", countryName);
     const newSelectedCountry = countryName;
-    setCountry(countryName);
-    setShowSelectedCountry(true);
+    setCountry(newSelectedCountry);
   };
 
-  const handleSetShowSelectedCountry = (show) => {
-    setShowSelectedCountry(show);
-  };
-
-  console.log("filteredCountries.length", filteredCountries.length);
-  console.log("setShowSelectedCountry", showSelectedCountry);
-
+  // DO NOT SHOW COUNTRY LIST WHEN 0 FILTER MATCHES
   if (filteredCountries.length == 0) {
     return <p>No matches</p>;
+    // SHOW COUNTRY LIST WHEN 2-10 FILTER MATCHES
   } else if (
     filteredCountries.length <= 10 &&
     filteredCountries.length > 1 &&
-    // filteredCountries.length > 1
-    !showSelectedCountry
-    // listVisible
+    selectedCountry == ""
   ) {
-    // console.log("SHOULD RETURN LIST");
-    // console.log("LÖRS LÄRS", selectedCountry);
-    // console.log("showselected", showSelectedCountry);
     return (
       <ol>
         {filteredCountries.map((country) => (
@@ -48,28 +34,23 @@ const CountryList = ({ filteredCountries, listVisible, setCountry }) => {
         ))}
       </ol>
     );
-  } else if (filteredCountries.length == 1) {
-    return <CountryDetails country={filteredCountries[0]} />;
+    // DO NOT SHOW COUNTRY LIST WHEN >10 FILTER MATCHES
   } else if (filteredCountries.length > 10) {
     return <p>Too many matches, specify another filter</p>;
+    // SHOW COUNTRY DETAILS WHEN ONLY 1 FILTER MATCH
+  } else if (filteredCountries.length == 1) {
+    setCountry(filteredCountries[0].name.common);
+    return <CountryDetails country={filteredCountries[0]} />;
+    // SHOW COUNTRY DETAILS WHEN COUNTRY SELECTED WITH BUTTON
   } else {
-    // console.log("LÖRS LÄRS", selectedCountry);
-    console.log("filteredCountries.length", filteredCountries.length);
-    console.log("filteredCountries", filteredCountries);
-    console.log("listVisible", listVisible);
-    console.log("showselected", showSelectedCountry);
-    // filteredCountries = filteredCountries.filter(
-    //   (country) => country.name.common == countryName
-    // );
     return (
-      <p>hih</p>
-      // <CountryDetails
-      //   country={
-      //     filteredCountries.filter(
-      //       (country) => country.name.common == selectedCountry
-      //     )[0]
-      //   }
-      // />
+      <CountryDetails
+        country={
+          filteredCountries.filter(
+            (country) => country.name.common == selectedCountry
+          )[0]
+        }
+      />
     );
   }
 };

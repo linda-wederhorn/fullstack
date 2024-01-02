@@ -6,25 +6,28 @@ import Filter from "puhelinluettelo/src/components/Filter";
 import CountryDetails from "./components/CountryDetails";
 
 const App = () => {
+  // Country list from service
   const [countries, setCountries] = useState([]);
+  // Filter state
   const [newFilter, setNewFilter] = useState("");
-  const [showSelectedCountry, setShowSelectedCountry] = useState(false);
+  // The selected country, or empty string if no country is selected
   const [selectedCountry, setSelectedCountry] = useState("");
 
+  //  Get all country details from service
   useEffect(() => {
     countryService.getAll().then((initialCountries) => {
       setCountries(initialCountries);
     });
   }, []);
 
+  // Update filter value and reset selected country
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value);
     console.log("countrylist length", countriesToShow.length);
-    setShowSelectedCountry(false);
     setSelectedCountry("");
-    if (countriesToShow.length == 1) setShowSelectedCountry(true);
   };
 
+  // Filter countries based on filter value
   const countriesToShow =
     newFilter === ""
       ? countries
@@ -51,8 +54,8 @@ const App = () => {
       <Filter filterText={newFilter} changeFunction={handleFilterChange} />
       <CountryList
         filteredCountries={countriesToShow}
-        listVisible={!showSelectedCountry}
         setCountry={setSelectedCountry}
+        selectedCountry={selectedCountry}
       />
     </>
   );
