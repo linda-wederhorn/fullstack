@@ -16,5 +16,4 @@ npm run dev
 # Open Weather Map
 
 https://openweathermap.org/current#name
-
-https://open-meteo.com/en/docs
+https://openweathermap.org/weather-conditions#Icon-list

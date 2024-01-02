@@ -1,9 +1,7 @@
 import countryService from "./services/countries";
-import WeatherData from "./services/weather";
 import CountryList from "./components/CountryList";
 import { useState, useEffect } from "react";
 import Filter from "puhelinluettelo/src/components/Filter";
-import CountryDetails from "./components/CountryDetails";
 
 const App = () => {
   // Country list from service
@@ -34,17 +32,6 @@ const App = () => {
       : countries.filter((country) =>
           country.name.common.toLowerCase().includes(newFilter)
         );
-
-  // const [lat, lng] = countriesToShow[0].latlng;
-  // console.log("countriesToShow[0]", lat, lng);
-
-  // useEffect(() => {
-  //   weatherData([lat, lng])
-  //     .then((weatherData) => setCityWeather(weatherData))
-  //     .catch((error) => {
-  //       console.error(error.message);
-  //     });
-  // }, []);
 
   console.log("APP.JS: SELECTED COUNTRY IS NOW", selectedCountry);
 
