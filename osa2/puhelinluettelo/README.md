@@ -17,4 +17,10 @@ npm run dev
 
 ````
 npm run server
-```
+````
+
+# Application running online
+
+Frontend from this package & backend from [linda-wederhorn/fullstack-osa3](https://github.com/linda-wederhorn/fullstack-osa3) repo
+
+https://fullstack-osa3-6v68.onrender.com/

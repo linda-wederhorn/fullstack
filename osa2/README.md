@@ -1,3 +1,3 @@
-# Osa 0
+# Osa 2
 
 https://fullstackopen.com/osa2
