@@ -41,7 +41,7 @@ const App = () => {
 		);
 
 		if (nameInPhonebook && !numberUpdated) {
-			notificationMessage(newName, "alreadyAdded");
+			notificationMessage("alreadyAdded", newName);
 		} else if (nameInPhonebook && numberUpdated) {
 			if (
 				window.confirm(
@@ -59,13 +59,13 @@ const App = () => {
 								person.id !== personToUpdate.id ? person : returnedPersonObject
 							)
 						);
-						notificationMessage(newName, "update");
+						notificationMessage("update", newName);
 						setNewName("");
 						setNewNumber("");
 					})
 					.catch((error) => {
 						console.error("ERROR", error.response.data);
-						notificationMessage(newName, "alreadyDeleted");
+						notificationMessage("alreadyDeleted", newName);
 						setNewName("");
 						setNewNumber("");
 						setPersons(persons);
@@ -77,12 +77,18 @@ const App = () => {
 				number: newNumber,
 			};
 
-			personService.addPerson(personObject).then((returnedPersonObject) => {
-				setPersons(persons.concat(returnedPersonObject));
-				setNewName("");
-				setNewNumber("");
-			});
-			notificationMessage(newName, "add");
+			personService
+				.addPerson(personObject)
+				.then((returnedPersonObject) => {
+					setPersons(persons.concat(returnedPersonObject));
+					setNewName("");
+					setNewNumber("");
+					notificationMessage("add", newName);
+				})
+				.catch((error) => {
+					console.log(error.response.data);
+					notificationMessage("invalid", undefined, error.response.data.error);
+				});
 		}
 	};
 
@@ -95,11 +101,15 @@ const App = () => {
 			personService.deletePerson(id);
 			const updatedPersons = persons.filter((person) => person.id !== id);
 			setPersons(updatedPersons);
-			notificationMessage(personToDelete.name, "delete");
+			notificationMessage("delete", personToDelete.name);
 		}
 	};
 
-	const notificationMessage = (name, event) => {
+	const notificationMessage = (
+		event,
+		name = undefined,
+		errorMessage = undefined
+	) => {
 		switch (event) {
 			case "add":
 				setNotification({
@@ -128,6 +138,12 @@ const App = () => {
 			case "alreadyDeleted":
 				setNotification({
 					message: `update failed, ${name} has already been deleted from server`,
+					type: "error",
+				});
+				break;
+			case "invalid":
+				setNotification({
+					message: errorMessage,
 					type: "error",
 				});
 				break;
