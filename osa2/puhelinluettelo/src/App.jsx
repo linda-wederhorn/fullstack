@@ -65,7 +65,13 @@ const App = () => {
 					})
 					.catch((error) => {
 						console.error("ERROR", error.response.data);
-						notificationMessage("alreadyDeleted", newName);
+						if (error.response.status === 400)
+							notificationMessage(
+								"invalid",
+								undefined,
+								error.response.data.error
+							);
+						else notificationMessage("alreadyDeleted", newName);
 						setNewName("");
 						setNewNumber("");
 						setPersons(persons);
@@ -158,7 +164,7 @@ const App = () => {
 			? persons
 			: persons.filter((person) =>
 					person.name.toLowerCase().includes(newFilter)
-			  );
+				);
 
 	return (
 		<div>
