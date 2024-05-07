@@ -49,7 +49,6 @@ const App = () => {
 				)
 			) {
 				const personToUpdate = persons.find((person) => person.name == newName);
-				console.log("needs to be updated", personToUpdate.name);
 				const changedPerson = { ...personToUpdate, number: newNumber };
 				personService
 					.updateNumber(personToUpdate.id, changedPerson)
@@ -64,7 +63,7 @@ const App = () => {
 						setNewNumber("");
 					})
 					.catch((error) => {
-						console.error("ERROR", error.response.data);
+						console.error("ERROR", error);
 						if (error.response.status === 400)
 							notificationMessage(
 								"invalid",
