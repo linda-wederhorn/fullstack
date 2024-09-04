@@ -1,0 +1,31 @@
+{
+  "name": "blogilista-backend",
+  "version": "0.0.1",
+  "description": "https://fullstackopen.com/osa4",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linda-wederhorn/fullstack.git"
+  },
+  "author": "Linda Wederhorn",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.3",
+    "express": "^4.18.2",
+    "mongodb": "4.1",
+    "mongoose": "^8.2.1",
+    "morgan": "^1.10.0",
+    "node": "^21.6.1"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^1.6.3",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.0.2"
+  }
+}
