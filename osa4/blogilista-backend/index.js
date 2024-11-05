@@ -13,7 +13,6 @@ const blogSchema = mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-console.log("process.env", process.env.MONGODB_URI)
 const mongoUrl = process.env.MONGODB_URI
 
 mongoose.connect(mongoUrl)

@@ -1,9 +1,0 @@
-PUT http://localhost:3003/api/blogs/123
-Content-Type: application/json
-
-{
-  "title": "linda's journey",
-  "author": "linda",
-  "url": "http://www.com",
-  "likes": "4"
-}
