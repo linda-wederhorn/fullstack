@@ -52,3 +52,45 @@ describe('favorite blog', () => {
     assert.deepStrictEqual(result, firstFavoriteBlog)
   })
 })
+
+describe('most blogs', () => {
+  test('returns the author with most blogs', () => {
+    const result = listHelper.mostBlogs(testBlogList)
+    assert.deepStrictEqual(result, { author: 'Robert C. Martin', blogs: 3 })
+  })
+
+  test('returns the first occurrence of authors with maximum blogs', () => {
+    const testBlogListExtended = [{
+      _id: '5a422bc61b54a676234d17fb',
+      title: 'Tupu',
+      author: 'Donald Duck',
+      url: 'https://en.wikipedia.org/wiki/Donald_Duck',
+      likes: 12,
+      __v: 0
+    },
+    {
+      _id: '5a422bc61b54a676234d17fa',
+      title: 'Hupu',
+      author: 'Donald Duck',
+      url: 'https://en.wikipedia.org/wiki/Donald_Duck',
+      likes: 11,
+      __v: 0
+    },
+    {
+      _id: '5a422bc61b54a676g34d17fa',
+      title: 'Lupu',
+      author: 'Donald Duck',
+      url: 'https://en.wikipedia.org/wiki/Donald_Duck',
+      likes: 10,
+      __v: 0
+    }, ...testBlogList]
+
+    const firstMostBlogs = {
+      author: 'Donald Duck',
+      blogs: 3
+    }
+
+    const result = listHelper.mostBlogs(testBlogListExtended)
+    assert.deepStrictEqual(result, firstMostBlogs)
+  })
+})

@@ -9,6 +9,20 @@ function favoriteBlog(blogs) {
   return maxLikesBlog
 }
 
+function mostBlogs(blogs) {
+  const allAuthorsAndBlogs = blogs.reduce((authorsAndBlogs, blog) => {
+    if (!authorsAndBlogs.map(item => item.author).includes(blog.author)) {
+      authorsAndBlogs.push({ author: blog.author, blogs: 1 })
+    } else {
+      authorsAndBlogs.find(item => item.author === blog.author).blogs++
+    }
+    return authorsAndBlogs
+  }, [])
+  const maxBlogs = Math.max(...allAuthorsAndBlogs.map(item => item.blogs))
+  const maxBlogsAuthor = allAuthorsAndBlogs.find(item => item.blogs === maxBlogs)
+  return maxBlogsAuthor
+}
+
 module.exports = {
-  dummy, totalLikes, favoriteBlog
+  dummy, totalLikes, favoriteBlog, mostBlogs
 }
